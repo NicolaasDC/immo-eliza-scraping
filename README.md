@@ -1,12 +1,12 @@
 # Immo-eliza-scraping
-
+```
 Immo Eliza - Data Collection
 Repository: immo-eliza-scraping
 Type: Consolidation
 Duration: 5 days
 Team: Solo
 Learning Objectives: Use Python to collect as much data as possible.
-
+```
 # Description
 This project had the following objectives:
     Be able to scrape a website
@@ -42,7 +42,7 @@ Clone the repository to your local machine
 Set up your virtual enviroment and install the packages from the requirements.txt file
 
 # Repo structure
-'''
+```
 .
 ├── scraper/
 │   └── scraper.py
@@ -55,7 +55,7 @@ Set up your virtual enviroment and install the packages from the requirements.tx
 ├── houses.csv
 └── README.md
 
-'''
+```
 
 # Usage
 main.py:
