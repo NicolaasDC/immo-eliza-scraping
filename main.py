@@ -1,15 +1,13 @@
 from scraper.scraper import House
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
-import time
 import re
-import pandas as pd
 import requests
 from requests import Session
-import asyncio
 
 def scrape_list_of_houses(url):
+    '''
+    A function to scrape the house urls from the search page on www.immoweb.be
+    '''
     # Set up custom headers
     headers = requests.utils.default_headers()
     headers.update({
@@ -25,7 +23,7 @@ def scrape_list_of_houses(url):
     # Scrape the property links
     list_url = []
 
-    # Find all the property cards on the page
+    # Find all the property cards on the page. Exclude new-real-estate-project-apartments
     for elem in soup.find_all('a', class_="card__title-link"):
         pattern_type = r'/([^/]+)/for-sale'
         match_type = re.search(pattern_type, str(elem))
@@ -36,27 +34,13 @@ def scrape_list_of_houses(url):
     # Print the extracted property links
     return list_url
 
-s = time.perf_counter()
 
-list_houses = []
-f = open("items.txt", "r")
-for line in f:
-    list_houses.append(line)
-
-for url_house in list_houses[0:2]:
-    data = []
-    house = House(url_house)
-    house_info = house.scrape_house()
-    print(house_info)
-    data.append(house_info)
-    print(data)
-    df = pd.DataFrame(data)
-    df.to_csv('houses.csv', mode='a', index=False, header=False)
-
-
-elapsed = time.perf_counter() - s
-print(f"{__file__} executed in {elapsed:0.2f} seconds.")
-
+# Create a house object
+house = House('https://www.immoweb.be/en/classified/house/for-sale/beveren/8791/20223110')
+# Scrape the info from the house object from www.immoweb.be
+info = house.scrape_house()
+# Print the house info
+print(info)
 
 
 
